@@ -1,4 +1,5 @@
 import 'package:emoji_reactions/model/twit.dart';
+import 'package:emoji_reactions/presentation/widgets/emoji_bar/emoji_bar.dart';
 import 'package:flutter/material.dart';
 
 class TwitsOverview extends StatelessWidget {
@@ -9,11 +10,17 @@ class TwitsOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: twits.length,
-      itemBuilder: (context, i) => Card(
-        elevation: 10,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Text(twits[i].body),
+      itemBuilder: (context, i) => InkWell(
+        onTap: () => showModalBottomSheet(
+          context: context,
+          builder: (context) => const EmojiBar(),
+        ),
+        child: Card(
+          elevation: 10,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(twits[i].body),
+          ),
         ),
       ),
     );
