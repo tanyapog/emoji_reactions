@@ -1,6 +1,11 @@
+import 'package:emoji_reactions/infrastructure/twit_dao.dart';
+import 'package:emoji_reactions/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await TwitDao().init();
+
   runApp(const MyApp());
 }
 
@@ -13,17 +18,6 @@ class MyApp extends StatelessWidget {
       title: 'Emoji Reactions',
       theme: ThemeData(primarySwatch: Colors.blue,),
       home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Emoji Reactions'),),
     );
   }
 }
