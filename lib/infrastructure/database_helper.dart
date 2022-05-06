@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const _dbName = 'EmojiReactions1.db';
+  static const _dbName = 'EmojiReactions.db';
   static const _dbVersion = 1;
   static const twitTable = _TwitTable();
 
