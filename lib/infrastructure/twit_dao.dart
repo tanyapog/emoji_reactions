@@ -26,4 +26,8 @@ class TwitDao {
     await db.rawUpdate('UPDATE $tt SET ${tt.reaction} = ? WHERE ${tt.id} = ?',
         [reaction, twitId]);
 
+  Future<int> selectReactionsCount(String reaction) async => Sqflite.firstIntValue(
+      await db.rawQuery('SELECT COUNT(id) FROM $tt WHERE ${tt.reaction} = ?',
+          [reaction])) ?? 0;
+
 }
