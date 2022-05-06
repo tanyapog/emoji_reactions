@@ -1,4 +1,4 @@
-import 'package:emoji_reactions/presentation/widgets/emoji_bar/emoji.dart';
+import 'package:emoji_reactions/presentation/widgets/emoji_bar/emoji_button.dart';
 import 'package:flutter/material.dart';
 
 class EmojiBar extends StatelessWidget {
@@ -19,7 +19,7 @@ class EmojiBar extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           itemBuilder: (context, i) =>
-            Emoji(twitId: twitId, emoji: emojis[i]),
+            EmojiButton(twitId: twitId, emoji: emojis[i]),
         ),
       )
     );
