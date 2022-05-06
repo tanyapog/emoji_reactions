@@ -23,7 +23,7 @@ class TwitsOverview extends StatelessWidget {
           await showModalBottomSheet(
             context: context,
             builder: (context) => EmojiBar(
-              twitId: twits[i].id,
+              twit: twits[i],
               emojis: emojis,
             ),
           );

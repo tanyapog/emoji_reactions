@@ -1,11 +1,12 @@
+import 'package:emoji_reactions/model/twit.dart';
 import 'package:emoji_reactions/presentation/widgets/emoji_bar/emoji_button.dart';
 import 'package:flutter/material.dart';
 
 class EmojiBar extends StatelessWidget {
-  final int twitId;
+  final Twit twit;
   final List<String> emojis;
 
-  const EmojiBar({Key? key, required this.twitId, required this.emojis}) : super(key: key);
+  const EmojiBar({Key? key, required this.twit, required this.emojis}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class EmojiBar extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           itemBuilder: (context, i) =>
-            EmojiButton(twitId: twitId, emoji: emojis[i]),
+            EmojiButton(twit: twit, emoji: emojis[i]),
         ),
       )
     );

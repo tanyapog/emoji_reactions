@@ -22,7 +22,7 @@ class TwitDao {
       twitsData.map((twitData) =>
         Twit.fromMap(twitData)).toList());
 
-  Future<int> updateReaction(int twitId, String reaction) async =>
+  Future<int> updateReaction(int twitId, String? reaction) async =>
     await db.rawUpdate('UPDATE $tt SET ${tt.reaction} = ? WHERE ${tt.id} = ?',
         [reaction, twitId]);
 
