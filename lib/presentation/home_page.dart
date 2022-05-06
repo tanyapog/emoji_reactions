@@ -28,7 +28,10 @@ class _HomePageState extends State<HomePage> {
         future: futureTwits,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return TwitsOverview(twits: snapshot.data!,);
+            return TwitsOverview(
+              twits: snapshot.data!,
+              notifyParent: refresh,
+            );
           } else if (snapshot.hasError) {
             return ErrorDisplay(
               error: 'Failed to load twits',
@@ -40,5 +43,10 @@ class _HomePageState extends State<HomePage> {
         }
       ),
     );
+  }
+
+  refresh() {
+    futureTwits = TwitDao().selectAll();
+    setState(() => {});
   }
 }

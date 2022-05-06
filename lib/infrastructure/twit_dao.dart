@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 class TwitDao {
   
   late Database db;
-  final twitTable = DatabaseHelper.twitTable;
+  final tt = DatabaseHelper.twitTable;
 
   // singleton
   static final TwitDao _instance = TwitDao._internal();
@@ -18,7 +18,12 @@ class TwitDao {
   }
 
   Future<List<Twit>> selectAll() async =>
-    await db.query('$twitTable').then((twitsData) =>
+    await db.query('$tt').then((twitsData) =>
       twitsData.map((twitData) =>
         Twit.fromMap(twitData)).toList());
+
+  Future<int> updateReaction(int twitId, String reaction) async =>
+    await db.rawUpdate('UPDATE $tt SET ${tt.reaction} = ? WHERE ${tt.id} = ?',
+        [reaction, twitId]);
+
 }

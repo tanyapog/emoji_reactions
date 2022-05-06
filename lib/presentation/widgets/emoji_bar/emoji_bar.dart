@@ -2,24 +2,26 @@ import 'package:emoji_reactions/presentation/widgets/emoji_bar/emoji.dart';
 import 'package:flutter/material.dart';
 
 class EmojiBar extends StatelessWidget {
-  const EmojiBar({Key? key}) : super(key: key);
+  final int twitId;
+  final List<String> emojis;
+
+  const EmojiBar({Key? key, required this.twitId, required this.emojis}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Emoji(onSelect: (){}, emoji: '👍🏼'),
-          Emoji(onSelect: (){}, emoji: '👎🏼'),
-          Emoji(onSelect: (){}, emoji: '🥰'),
-          Emoji(onSelect: (){}, emoji: '🤣'),
-          Emoji(onSelect: (){}, emoji: '🤔'),
-          Emoji(onSelect: (){}, emoji: '🥲'),
-        ],
-      ),
+      alignment: Alignment.center,
+      height: 50,
+      child: Padding(
+        padding: const EdgeInsets.all(1,),
+        child: ListView.builder(
+          itemCount: emojis.length,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemBuilder: (context, i) =>
+            Emoji(twitId: twitId, emoji: emojis[i]),
+        ),
+      )
     );
   }
 }

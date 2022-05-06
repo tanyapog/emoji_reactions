@@ -4,22 +4,51 @@ import 'package:flutter/material.dart';
 
 class TwitsOverview extends StatelessWidget {
   final List<Twit> twits;
-  const TwitsOverview({Key? key, required this.twits}) : super(key: key);
+  final Function() notifyParent;
+
+  TwitsOverview({
+    Key? key,
+    required this.twits,
+    required this.notifyParent,
+  }) : super(key: key);
+
+  final emojis = ['👍🏼', '👎🏼', '🥰', '🤣', '🤔', '🥲'];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: twits.length,
       itemBuilder: (context, i) => InkWell(
-        onTap: () => showModalBottomSheet(
-          context: context,
-          builder: (context) => const EmojiBar(),
-        ),
+        onTap: () async {
+          await showModalBottomSheet(
+            context: context,
+            builder: (context) => EmojiBar(
+              twitId: twits[i].id,
+              emojis: emojis,
+            ),
+          );
+          await notifyParent();
+        },
         child: Card(
           elevation: 10,
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(twits[i].body),
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(twits[i].body),
+                if (twits[i].reaction != null)
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(twits[i].reaction!),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

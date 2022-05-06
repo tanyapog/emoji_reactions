@@ -3,10 +3,9 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const _dbName = 'EmojiReactions.db';
+  static const _dbName = 'EmojiReactions1.db';
   static const _dbVersion = 1;
   static const twitTable = _TwitTable();
-  static const reactionTable = _ReactionTable();
 
   // singleton
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -24,15 +23,9 @@ class DatabaseHelper {
       await db.execute('''
         CREATE TABLE $twitTable (
           ${twitTable.id} INTEGER PRIMARY KEY,
-          ${twitTable.body} TEXT NOT NULL
-        );
-      ''');
-      await db.execute('''
-        CREATE TABLE $reactionTable (
-          ${reactionTable.id} INTEGER PRIMARY KEY,
-          ${reactionTable.twitId} INTEGER,
-          ${reactionTable.emoji} TEXT NOT NULL
-        );
+          ${twitTable.body} TEXT NOT NULL,
+          ${twitTable.reaction} TEXT
+        )
       ''');
       // insert initial twit data
       for (int i = 0; i < twits.length; i++) {
@@ -46,17 +39,8 @@ class _TwitTable {
   const _TwitTable();
   final id = 'id';
   final body = 'body';
+  final reaction = 'reaction';
 
   @override
   String toString() => 'TwitTable';
-}
-
-class _ReactionTable {
-  const _ReactionTable();
-  final id = 'id';
-  final twitId = 'twitId';
-  final emoji = 'emoji';
-
-  @override
-  String toString() => 'ReactionTable';
 }
